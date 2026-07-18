@@ -940,15 +940,16 @@ img {
    İNDİR
    ============================================================ */
 .download {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 160px clamp(24px, 6vw, 96px) 40px;
+  padding: var(--nav-h) clamp(24px, 6vw, 96px) 24px;
   background: radial-gradient(120% 90% at 50% 0%, #16332a 0%, var(--bg-night) 60%);
   color: var(--ink-night);
   text-align: center;
+  overflow: hidden;
 }
 .download__content {
   flex: 1;
@@ -1039,7 +1040,18 @@ img {
     padding-top: 80px;
     padding-bottom: 80px;
   }
-  .download { padding-top: 120px; }
+  .download {
+    padding-top: calc(var(--nav-h) + 8px);
+  }
+  .download__title { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+  .download__subtitle { margin-top: 10px; font-size: 0.85rem; }
+  .download__badges { margin-top: 20px; gap: 10px; }
+  .store-badge { padding: 10px 16px 10px 12px; gap: 8px; }
+  .store-badge__icon { font-size: 1.4rem; }
+  .store-badge__big { font-size: 0.9rem; }
+  .store-badge__small { font-size: 0.6rem; }
+  .download__rating { font-size: 0.75rem; }
+  .site-footer { padding-top: 10px; font-size: 0.65rem; }
 }
 
 /* ---- Scroll-reveal: JS (sections.js) opacity/translateY'yi animasyonla 1/0'a taşır ---- */
