@@ -1,42 +1,39 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Chef Fresh — Mutfak envanteriniz artık cebinizde. Malzemelerinizi ve tazelik durumunu akıllıca takip edin."
+      content="Chef Fresh — Your kitchen inventory, now in your pocket. Track your ingredients and their freshness effortlessly."
     />
-    <title>Chef Fresh — Mutfak Envanteriniz Artık Cebinizde</title>
+    <title>Chef Fresh — Your Kitchen Inventory, Now In Your Pocket</title>
   </head>
   <body>
-    <!-- Özel imleç (yaprak / renk damlası) -->
+    <!-- Custom cursor (leaf / color drop) -->
     <div class="cursor" id="cursor" aria-hidden="true"></div>
 
-    <!-- ============ ÜST MENÜ ============ -->
+    <!-- ============ NAVBAR ============ -->
     <header class="navbar" id="navbar">
       <div class="navbar__cluster">
-        <button class="navbar__item" id="langToggle" type="button" aria-label="Dili değiştir">
-          <span class="navbar__item-icon" id="langIcon">🇹🇷</span>
-        </button>
-        <button class="navbar__item" id="themeToggle" type="button" aria-label="Görünümü değiştir">
+        <button class="navbar__item" id="themeToggle" type="button" aria-label="Toggle appearance">
           <span class="navbar__item-icon" id="themeIcon">🌙</span>
         </button>
       </div>
 
       <nav class="navbar__center">
-        <a class="navbar__link" href="#ozellikler">Özellikler</a>
+        <a class="navbar__link" href="#ozellikler">Features</a>
         <a class="navbar__brand" href="#hero">
           <img src="assets/brand/app-icon.jpg" alt="Chef Fresh" class="navbar__brand-mark" />
           <span class="navbar__brand-text">Chef Fresh</span>
         </a>
-        <a class="navbar__link" href="#iletisim">İletişim</a>
+        <a class="navbar__link" href="#iletisim">Contact</a>
       </nav>
 
       <div class="navbar__cluster">
         <a class="navbar__cta" href="#indir">
           <img src="assets/brand/app-icon.jpg" alt="" class="navbar__cta-icon" />
-          <span>Uygulamayı Al</span>
+          <span>Get the App</span>
           <span class="navbar__cta-badge">4.9★</span>
         </a>
       </div>
@@ -45,9 +42,9 @@
     <main>
       <!-- ============ HERO ============ -->
       <section class="hero" id="hero">
-        <!-- pinlenen sahne: tüm katmanlar burada üst üste biner -->
+        <!-- pinned stage: all layers stack here -->
         <div class="hero__stage" id="heroStage">
-          <!-- Arka plan geçişi: iki gradyan katman, opacity crossfade (compositor) -->
+          <!-- Background crossfade: two gradient layers, opacity crossfade (compositor) -->
           <div class="bg-layer bg-night" aria-hidden="true">
             <div class="orb orb--green"></div>
             <div class="orb orb--orange"></div>
@@ -57,38 +54,38 @@
             <div class="orb orb--orange-day"></div>
           </div>
 
-          <!-- Metin bloğu -->
+          <!-- Text block -->
           <div class="hero__intro layer" data-layer="intro" data-depth="0.2">
             <div class="hero__logo">
               <img src="assets/brand/app-icon.jpg" alt="" class="hero__logo-mark" />
               <span class="hero__logo-text">Chef&nbsp;Fresh</span>
             </div>
-            <h1 class="hero__title">Mutfak Envanteriniz<br />Artık Cebinizde</h1>
+            <h1 class="hero__title">Your Kitchen Inventory<br />Now In Your Pocket</h1>
             <p class="hero__subtitle">
-              Tazeliği koru, israfı önle. Sincap yardımcınız kapıyı açmaya hazır.
+              Keep it fresh, cut the waste. Your squirrel sidekick is ready to open the door.
             </p>
           </div>
 
-          <!-- Buzdolabı: gövde + iki kapak (her biri swappable katman) -->
+          <!-- Fridge: body + two doors (each a swappable layer) -->
           <div class="fridge" id="fridge">
-            <!-- Soğuk parıltı / buhar (kapak açılınca görünür) -->
+            <!-- Cold glow / mist (visible when the door opens) -->
             <div class="layer glow" data-layer="glow" data-depth="0.1" aria-hidden="true">
               <img src="assets/hero/glow.svg" alt="" />
             </div>
 
-            <!-- İç kadraj: sincap buradan çıkar -->
+            <!-- Interior frame: squirrel appears here -->
             <div class="fridge__interior">
               <div class="layer squirrel" data-layer="squirrel" data-depth="0.5">
-                <img src="assets/hero/squirrel-welcome.png" alt="Chef Fresh aşçı sincap maskotu, göz kırpıp karşılıyor" />
+                <img src="assets/hero/squirrel-welcome.png" alt="Chef Fresh's chef squirrel mascot winking hello" />
               </div>
             </div>
 
-            <!-- Gövde -->
+            <!-- Body -->
             <div class="layer fridge__body" data-layer="fridge-body" data-depth="0.3">
-              <img src="assets/hero/fridge-body.svg" alt="Minimalist buzdolabı" />
+              <img src="assets/hero/fridge-body.svg" alt="Minimalist fridge" />
             </div>
 
-            <!-- Kapaklar (üstte, açılıp yana kayar) -->
+            <!-- Doors (top layer, open and slide aside) -->
             <div class="layer fridge__door fridge__door--left" data-layer="door-left" data-depth="0.35">
               <img src="assets/hero/fridge-door-left.svg" alt="" />
             </div>
@@ -96,7 +93,7 @@
               <img src="assets/hero/fridge-door-right.svg" alt="" />
             </div>
 
-            <!-- Bilgi kartları: kodla çizilir, buzdolabından fırlar -->
+            <!-- Info cards: drawn in code, pop out of the fridge -->
             <div class="layer card card--fresh" data-layer="card-fresh" data-depth="0.8">
               <span class="card__value">7</span>
               <span class="card__label">Fresh</span>
@@ -109,18 +106,18 @@
             </div>
           </div>
 
-          <!-- Aşağı kaydır ipucu -->
+          <!-- Scroll-down hint -->
           <div class="scroll-hint layer" data-layer="hint" id="scrollHint" aria-hidden="true">
-            <span>Aşağı Kaydır</span>
+            <span>Scroll Down</span>
             <span class="scroll-hint__arrow"></span>
           </div>
         </div>
       </section>
 
-      <!-- ============ AI TARAMA ============ -->
+      <!-- ============ AI SCAN ============ -->
       <section class="ai-scan" id="ai-scan">
         <div class="ai-scan__stage" id="aiScanStage">
-          <!-- Arka plan geçişi: hero ile aynı teknik -->
+          <!-- Background crossfade: same technique as hero -->
           <div class="bg-layer bg-night" aria-hidden="true">
             <div class="orb orb--green"></div>
             <div class="orb orb--orange"></div>
@@ -130,10 +127,38 @@
             <div class="orb orb--orange-day"></div>
           </div>
 
-          <!-- Başlık -->
+          <!-- Heading -->
           <div class="ai-scan__intro layer" data-layer="scan-intro">
-            <span class="eyebrow">AI Tarama</span>
-            <h2 class="ai-scan__title">Kameranı doğrult,<br />gerisini yapay zeka halletsin</h2>
+            <span class="eyebrow">AI Scan</span>
+            <h2 class="ai-scan__title">Point your camera,<br />let AI handle the rest</h2>
+          </div>
+
+          <!-- Floating 3D category cards (either side of the phone, drop in on scroll) -->
+          <div class="category-cloud" aria-hidden="true">
+            <div class="cat-card cat-card--l1" data-ry="18" data-rz="-6">
+              <span class="cat-card__icon">🍃</span>
+              <span class="cat-card__label">Fruits &amp; Vegetables</span>
+            </div>
+            <div class="cat-card cat-card--l2" data-ry="16" data-rz="4">
+              <span class="cat-card__icon">🥩</span>
+              <span class="cat-card__label">Meat</span>
+            </div>
+            <div class="cat-card cat-card--l3" data-ry="20" data-rz="-3">
+              <span class="cat-card__icon">🥛</span>
+              <span class="cat-card__label">Dairy</span>
+            </div>
+            <div class="cat-card cat-card--r1" data-ry="-18" data-rz="5">
+              <span class="cat-card__icon">🥤</span>
+              <span class="cat-card__label">Drinks</span>
+            </div>
+            <div class="cat-card cat-card--r2" data-ry="-16" data-rz="-4">
+              <span class="cat-card__icon">🫙</span>
+              <span class="cat-card__label">Sauces</span>
+            </div>
+            <div class="cat-card cat-card--r3" data-ry="-20" data-rz="6">
+              <span class="cat-card__icon">🍱</span>
+              <span class="cat-card__label">Ready to Eat</span>
+            </div>
           </div>
 
           <div class="ai-scan__scene">
@@ -145,12 +170,13 @@
                   <!-- Ekran 1: Add Material -->
                   <div class="screen screen--add" id="screenAdd">
                     <span class="screen__title">Add Material</span>
-                    <div class="screen__photo-slot" aria-hidden="true">
-                      <span>📷</span>
+                    <div class="ai-card">
+                      <span class="ai-card__title">AI Scan</span>
+                      <p class="ai-card__subtitle">Snap a photo, let AI handle the rest</p>
+                      <button class="scan-btn" id="scanBtn" type="button">
+                        <span aria-hidden="true">📷</span> Scan Photo
+                      </button>
                     </div>
-                    <button class="scan-btn" id="scanBtn" type="button">
-                      <span aria-hidden="true">✨</span> Scan Photo
-                    </button>
                   </div>
                   <!-- Ekran 2: Item Details -->
                   <div class="screen screen--details" id="screenDetails">
@@ -159,33 +185,118 @@
                       <img src="assets/scan/apple.svg" alt="" />
                     </div>
                     <div class="item-field">
-                      <span class="item-field__label">Ürün</span>
-                      <span class="item-field__value">Elma</span>
+                      <span class="item-field__label">Name</span>
+                      <span class="item-field__value">Apple</span>
                     </div>
                     <div class="item-field">
-                      <span class="item-field__label">Kategori</span>
-                      <span class="item-field__value item-field__value--tag">Fruits &amp; Vegetables</span>
+                      <span class="item-field__label">Category</span>
+                      <span class="category-pill">
+                        <span aria-hidden="true">🍃</span> Fruits &amp; Vegetables
+                      </span>
                     </div>
-                    <button class="save-btn" id="saveBtn" type="button">Save</button>
+                    <button class="save-btn" id="saveBtn" type="button">
+                      <img src="assets/scan/fridge-glyph.svg" alt="" aria-hidden="true" />
+                      Save
+                    </button>
                   </div>
                 </div>
               </div>
 
               <div class="layer scan-squirrel" data-layer="scan-squirrel" id="scanSquirrel">
-                <img src="assets/hero/squirrel-welcome.png" alt="Sincap, Scan Photo butonunu işaret ediyor" />
+                <img src="assets/hero/squirrel-welcome.png" alt="Squirrel pointing at the Scan Photo button" />
               </div>
             </div>
 
-            <!-- Havada süzülen elma + lazer -->
+            <!-- Floating apple + laser -->
             <div class="scan-object-wrap">
               <div class="layer scan-object" data-layer="scan-apple" id="scanApple">
-                <img src="assets/scan/apple.svg" alt="Taranan elma" />
+                <img src="assets/scan/apple.svg" alt="Scanned apple" />
               </div>
               <div class="scan-laser" id="scanLaser" aria-hidden="true"></div>
               <div class="scan-ring" aria-hidden="true"></div>
             </div>
           </div>
         </div>
+      </section>
+
+      <!-- ============ FEATURES ============ -->
+      <section class="features" id="ozellikler">
+        <div class="features__intro reveal">
+          <span class="eyebrow">Features</span>
+          <h2 class="features__title">Manage Your Kitchen with Chef Fresh</h2>
+          <p class="features__subtitle">
+            Track your inventory, cut down on waste, and discover the best recipes for what you have on hand.
+          </p>
+        </div>
+
+        <div class="features__grid">
+          <div class="feature-card reveal">
+            <span class="feature-card__icon" aria-hidden="true">📸</span>
+            <h3 class="feature-card__title">Smart Scan</h3>
+            <p class="feature-card__desc">Snap a photo and let Chef Fresh automatically recognize the item and its category.</p>
+          </div>
+          <div class="feature-card reveal">
+            <span class="feature-card__icon" aria-hidden="true">⏰</span>
+            <h3 class="feature-card__title">Expiry Alerts</h3>
+            <p class="feature-card__desc">Never miss the freshness window; get instant notifications for items about to expire.</p>
+          </div>
+          <div class="feature-card reveal">
+            <span class="feature-card__icon" aria-hidden="true">🍳</span>
+            <h3 class="feature-card__title">Recipe Suggestions</h3>
+            <p class="feature-card__desc">Discover recipes you can make with what's already in your fridge.</p>
+          </div>
+          <div class="feature-card reveal">
+            <span class="feature-card__icon" aria-hidden="true">📊</span>
+            <h3 class="feature-card__title">Waste Report</h3>
+            <p class="feature-card__desc">See how much you're saving with weekly summaries.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CONTACT ============ -->
+      <section class="contact" id="iletisim">
+        <div class="contact__content reveal">
+          <span class="eyebrow eyebrow--light">Contact</span>
+          <h2 class="contact__title">Got questions?</h2>
+          <p class="contact__subtitle">Our team is happy to help.</p>
+          <a class="contact__email" href="mailto:merhaba@cheffresh.app">merhaba@cheffresh.app</a>
+          <div class="contact__social">
+            <a class="contact__social-link" href="#" aria-label="Instagram">📸</a>
+            <a class="contact__social-link" href="#" aria-label="X (Twitter)">🐦</a>
+            <a class="contact__social-link" href="#" aria-label="TikTok">🎵</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ DOWNLOAD ============ -->
+      <section class="download" id="indir">
+        <div class="download__content reveal">
+          <span class="eyebrow">Download Now</span>
+          <h2 class="download__title">Your Kitchen, Now In Your Pocket</h2>
+          <p class="download__subtitle">Download Chef Fresh and take control of freshness today.</p>
+
+          <div class="download__badges">
+            <a class="store-badge" href="#">
+              <span class="store-badge__icon" aria-hidden="true">🍎</span>
+              <span class="store-badge__text">
+                <span class="store-badge__small">Download on the</span>
+                <span class="store-badge__big">App Store</span>
+              </span>
+            </a>
+            <a class="store-badge" href="#">
+              <span class="store-badge__icon" aria-hidden="true">▶️</span>
+              <span class="store-badge__text">
+                <span class="store-badge__small">Get it on</span>
+                <span class="store-badge__big">Google Play</span>
+              </span>
+            </a>
+            <span class="download__rating">4.9★ <span>2,400+ reviews</span></span>
+          </div>
+        </div>
+
+        <footer class="site-footer">
+          <span>© 2026 Chef Fresh. All rights reserved.</span>
+        </footer>
       </section>
     </main>
 

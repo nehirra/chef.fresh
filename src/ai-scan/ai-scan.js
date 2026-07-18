@@ -27,6 +27,16 @@ export function initAiScan() {
   const screenDetails = document.querySelector("#screenDetails");
   const saveBtn = document.querySelector("#saveBtn");
   const bgDay = document.querySelector("#ai-scan .bg-day");
+  const catCards = gsap.utils.toArray(".cat-card");
+
+  // Kartların 3D eğimi: her kartın data-ry / data-rz'sini oku (sol içe/sağa,
+  // sağ içe/sola bakar). transformPerspective ile gerçek 3D derinlik.
+  const cardTilt = (card) => ({
+    rotationY: parseFloat(card.dataset.ry) || 0,
+    rotationZ: parseFloat(card.dataset.rz) || 0,
+    transformPerspective: 700,
+    transformOrigin: "center center",
+  });
 
   // --- Hareket azaltma: statik son durum ---
   if (prefersReduced) {
@@ -37,6 +47,7 @@ export function initAiScan() {
     gsap.set(screenAdd, { opacity: 0 });
     gsap.set(screenDetails, { opacity: 1, filter: "blur(0px)", scale: 1 });
     gsap.set(bgDay, { opacity: 1 });
+    catCards.forEach((c) => gsap.set(c, { opacity: 1, y: 0, ...cardTilt(c) }));
     return;
   }
 
@@ -56,6 +67,21 @@ export function initAiScan() {
     repeat: -1,
   });
 
+  // Kategori kartları: başlangıçta üstte + görünmez, 3D eğimlerini korur.
+  // Ayrıca hafif "süzülme" (yPercent) — scroll'un yönettiği y (px) ile
+  // çakışmaz çünkü GSAP ikisini ayrı tutup toplar → nefes alan kartlar.
+  catCards.forEach((card, i) => {
+    gsap.set(card, { y: -64, opacity: 0, ...cardTilt(card) });
+    gsap.to(card, {
+      yPercent: 7,
+      duration: 2.2 + i * 0.2,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: -1,
+      delay: i * 0.15,
+    });
+  });
+
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: ".ai-scan",
@@ -71,6 +97,15 @@ export function initAiScan() {
     .to(phone, { opacity: 1, scale: 1, ease: "back.out(1.4)", duration: 0.18 }, 0.04)
     .to(squirrel, { opacity: 1, y: 0, scale: 1, ease: "back.out(1.5)", duration: 0.18 }, 0.1)
     .to(apple, { opacity: 1, y: 0, ease: "power2.out", duration: 0.16 }, 0.08);
+
+  // 1b) Kategori kartları üstten aşağı kayarak + solarak süzülür (hafif stagger)
+  tl.to(catCards, {
+    y: 0,
+    opacity: 1,
+    ease: "power2.out",
+    duration: 0.18,
+    stagger: 0.025,
+  }, 0.06);
 
   // 2) Sincap "Scan Photo" butonunu işaret eder — buton parlar
   tl.to(scanBtn, {

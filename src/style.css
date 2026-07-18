@@ -497,10 +497,26 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(24px, 4vh, 48px);
-  padding: var(--nav-h) clamp(24px, 6vw, 96px) 0;
+  /* flex-start: içerik viewport'tan uzun olduğunda (mobil) navbar'ın
+     ARKASINA değil, aşağıya taşar — center kullanılsaydı üstten taşardı. */
+  justify-content: flex-start;
+  gap: clamp(16px, 4vh, 48px);
+  padding: calc(var(--nav-h) + 16px) clamp(24px, 6vw, 96px) 24px;
   overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .ai-scan__stage {
+    gap: 14px;
+    padding-top: calc(var(--nav-h) + 8px);
+  }
+}
+
+/* Hero, gündüz (day) rengiyle biter; bu bölüm de aynı renkten başlasın diye
+   .bg-day burada baştan görünür olur — aksi halde bölüm sınırında arka plan
+   bir an için geceye (bg-night) geri dönüp göz tırmalayan bir sıçrama yapar. */
+.ai-scan .bg-day {
+  opacity: 1;
 }
 
 .eyebrow {
@@ -520,10 +536,17 @@ img {
   max-width: 620px;
 }
 .ai-scan__title {
-  font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+  font-size: clamp(1.25rem, 3.6vw, 2.5rem);
   line-height: 1.12;
   font-weight: 800;
   letter-spacing: -0.02em;
+  /* Bu bölüm hep "gündüz" zemininde durur (.ai-scan .bg-day{opacity:1}),
+     bu yüzden body'den miras alınan açık (gece) rengi yerine koyu renk sabitlenir. */
+  color: var(--ink-day);
+}
+@media (max-width: 640px) {
+  .eyebrow { margin-bottom: 4px; }
+  .ai-scan__title { font-size: 1.1rem; }
 }
 
 .ai-scan__scene {
@@ -542,6 +565,52 @@ img {
   }
 }
 
+/* ---- Süzülen 3D kategori kartları (telefonun sağ/solunda) ---- */
+/* Tüm sahneyi kaplar; kartlar absolute olarak sağ/sola saçılır. Telefon
+   (.ai-scan__scene z-index:3) bunların üstünde kalır → derinlik hissi. */
+.category-cloud {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.cat-card {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 20px;
+  background: #ffffff;
+  border: 1px solid rgba(31, 42, 32, 0.06);
+  border-radius: 18px;
+  font-weight: 800;
+  font-size: clamp(0.82rem, 1.05vw, 1rem);
+  letter-spacing: -0.01em;
+  color: var(--ink-day);
+  white-space: nowrap;
+  /* Katmanlı gölge = "havada duran kart" hissi */
+  box-shadow: 0 22px 45px rgba(20, 30, 22, 0.16), 0 5px 12px rgba(20, 30, 22, 0.07);
+  will-change: transform, opacity;
+}
+.cat-card__icon {
+  font-size: 1.25em;
+  line-height: 1;
+}
+
+/* Konumlar — krokideki saçılmış yerleşim (3 sol / 3 sağ). GSAP yalnızca
+   rotasyon + y + opacity'yi yönetir; yerleşim burada. */
+.cat-card--l1 { left: 5%;  bottom: 15%; }
+.cat-card--l2 { left: 9%;  top: 42%; }
+.cat-card--l3 { left: 13%; top: 13%; }
+.cat-card--r1 { right: 8%; top: 12%; }
+.cat-card--r2 { right: 5%; top: 42%; }
+.cat-card--r3 { right: 9%; bottom: 16%; }
+
+/* Dar ekranda telefon/sincap/elma zaten alt alta diziliyor → kalabalık olmasın */
+@media (max-width: 860px) {
+  .category-cloud { display: none; }
+}
+
 /* ---- Telefon mockup ---- */
 .phone-wrap {
   position: relative;
@@ -554,6 +623,9 @@ img {
   border-radius: 34px;
   padding: 10px;
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+}
+@media (max-width: 640px) {
+  .phone { width: min(190px, 50vw); }
 }
 .phone__notch {
   position: absolute;
@@ -595,15 +667,28 @@ img {
 .screen--add {
   opacity: 1;
 }
-.screen__photo-slot {
+/* AI Scan kartı: gerçek uygulamadaki gibi açık gri kart */
+.ai-card {
   width: 100%;
   flex: 1;
   border-radius: 16px;
-  border: 2px dashed #d8d8d4;
-  display: grid;
-  place-items: center;
-  font-size: 2rem;
-  background: #f6f6f3;
+  background: #f4f4f2;
+  border: 1px solid #eaeae7;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ai-card__title {
+  font-weight: 800;
+  font-size: 0.86rem;
+  color: #1a1a1a;
+}
+.ai-card__subtitle {
+  font-size: 0.68rem;
+  color: #8a8a86;
+  line-height: 1.35;
+  margin-bottom: 4px;
 }
 .scan-btn {
   width: 100%;
@@ -619,6 +704,7 @@ img {
   font-weight: 700;
   font-size: 0.82rem;
   cursor: pointer;
+  margin-top: auto;
 }
 
 .screen--details {
@@ -636,8 +722,9 @@ img {
 .item-field {
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
   font-size: 0.8rem;
 }
 .item-field__label {
@@ -648,24 +735,39 @@ img {
   font-weight: 700;
   color: #1a1a1a;
 }
-.item-field__value--tag {
-  background: rgba(34, 197, 94, 0.14);
-  color: var(--fresh-deep);
-  padding: 4px 10px;
+/* Kategori pill: AI tarafından otomatik seçildiği için dolu/siyah (gerçek
+   uygulamadaki "seçili" pill konvansiyonu) */
+.category-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 5px 12px;
   border-radius: 999px;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
+  font-weight: 700;
 }
 .save-btn {
   margin-top: auto;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
   padding: 11px;
   border: none;
   border-radius: 999px;
-  background: var(--fresh);
-  color: #052e14;
+  background: #111111;
+  color: #fff;
   font-weight: 800;
   font-size: 0.85rem;
   cursor: pointer;
+}
+.save-btn img {
+  width: 15px;
+  height: 15px;
+  filter: invert(1);
 }
 
 /* ---- Sincap: telefonun sol altında, butonu işaret eder ---- */
@@ -720,6 +822,233 @@ img {
   box-shadow: 0 0 18px 4px rgba(168, 85, 247, 0.7);
   opacity: 0;
   z-index: 3;
+}
+
+/* ============================================================
+   ÖZELLİKLER
+   ============================================================ */
+.features {
+  padding: 120px clamp(24px, 6vw, 96px);
+  background: var(--bg-day);
+  color: var(--ink-day);
+}
+.features .eyebrow { color: var(--fresh-deep); }
+.features__intro {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 56px;
+}
+.features__title {
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.features__subtitle {
+  margin-top: 14px;
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  color: var(--ink-day-soft);
+}
+.features__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.feature-card {
+  background: #fff;
+  border: 1px solid rgba(31, 42, 32, 0.06);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  box-shadow: 0 14px 34px rgba(20, 30, 22, 0.06);
+}
+.feature-card__icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 14px;
+}
+.feature-card__title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.feature-card__desc {
+  font-size: 0.92rem;
+  color: var(--ink-day-soft);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   İLETİŞİM
+   ============================================================ */
+.contact {
+  padding: 120px clamp(24px, 6vw, 96px);
+  background: var(--bg-night);
+  color: var(--ink-night);
+  text-align: center;
+}
+.eyebrow--light { color: var(--fresh-glow); }
+.contact__content {
+  max-width: 560px;
+  margin: 0 auto;
+}
+.contact__title {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.contact__subtitle {
+  margin-top: 14px;
+  font-size: 1rem;
+  color: var(--ink-night-soft);
+}
+.contact__email {
+  display: inline-block;
+  margin-top: 28px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--fresh-glow);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.contact__email:hover { border-color: var(--fresh-glow); }
+.contact__social {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+.contact__social-link {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+.contact__social-link:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: scale(1.08);
+}
+
+/* ============================================================
+   İNDİR
+   ============================================================ */
+.download {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 160px clamp(24px, 6vw, 96px) 40px;
+  background: radial-gradient(120% 90% at 50% 0%, #16332a 0%, var(--bg-night) 60%);
+  color: var(--ink-night);
+  text-align: center;
+}
+.download__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.download__title {
+  font-size: clamp(2.4rem, 7vw, 4.6rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+.download__subtitle {
+  margin-top: 20px;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  color: var(--ink-night-soft);
+}
+.download__badges {
+  margin-top: 48px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+}
+.store-badge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  color: #111814;
+  padding: 16px 30px 16px 20px;
+  border-radius: 18px;
+  text-decoration: none;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+  transition: transform 0.15s ease;
+}
+.store-badge:hover { transform: translateY(-2px); }
+.store-badge__icon { font-size: 2.1rem; }
+.store-badge__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+.store-badge__small {
+  font-size: 0.72rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.store-badge__big {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+.download__rating {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--orange);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.download__rating span {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink-night-soft);
+  letter-spacing: 0;
+}
+
+.site-footer {
+  width: 100%;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--ink-night-soft);
+}
+
+@media (max-width: 640px) {
+  .features,
+  .contact {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  .download { padding-top: 120px; }
+}
+
+/* ---- Scroll-reveal: JS (sections.js) opacity/translateY'yi animasyonla 1/0'a taşır ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
 }
 
 /* ============================================================

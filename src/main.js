@@ -2,6 +2,7 @@ import "./style.css";
 import { gsap } from "gsap";
 import { initHero } from "./hero/hero.js";
 import { initAiScan } from "./ai-scan/ai-scan.js";
+import { initSections } from "./sections/sections.js";
 
 /* ---- Hero sahnesi ---- */
 initHero();
@@ -9,10 +10,13 @@ initHero();
 /* ---- AI Tarama sahnesi ---- */
 initAiScan();
 
-/* ---- Özel imleç (yaprak / renk damlası) ---- */
+/* ---- Özellikler / İletişim / İndir: scroll-reveal ---- */
+initSections();
+
+/* ---- Custom cursor (leaf / color drop) ---- */
 initCursor();
 
-/* ---- Üst menü: dil / görünüm ikon geçişleri ---- */
+/* ---- Navbar: theme icon toggle ---- */
 initNavToggles();
 
 function initCursor() {
@@ -43,16 +47,6 @@ function initCursor() {
 }
 
 function initNavToggles() {
-  const langBtn = document.querySelector("#langToggle");
-  const langIcon = document.querySelector("#langIcon");
-  if (langBtn && langIcon) {
-    langBtn.addEventListener("click", () => {
-      const isTr = document.documentElement.lang === "tr";
-      document.documentElement.lang = isTr ? "en" : "tr";
-      langIcon.textContent = isTr ? "🇬🇧" : "🇹🇷";
-    });
-  }
-
   const themeBtn = document.querySelector("#themeToggle");
   const themeIcon = document.querySelector("#themeIcon");
   if (themeBtn && themeIcon) {
