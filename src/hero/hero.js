@@ -30,7 +30,7 @@ export function initHero() {
   const logoText = document.querySelector(".hero__logo-text");
   const title = document.querySelector(".hero__title");
   const subtitle = document.querySelector(".hero__subtitle");
-  const bgDay = document.querySelector(".bg-day");
+  const bgDay = document.querySelector("#hero .bg-day");
   const navLinks = document.querySelectorAll(".navbar__link");
   const navBrandText = document.querySelector(".navbar__brand-text");
   const navItems = document.querySelectorAll(".navbar__item");

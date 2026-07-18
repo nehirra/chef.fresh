@@ -1,9 +1,13 @@
 import "./style.css";
 import { gsap } from "gsap";
 import { initHero } from "./hero/hero.js";
+import { initAiScan } from "./ai-scan/ai-scan.js";
 
 /* ---- Hero sahnesi ---- */
 initHero();
+
+/* ---- AI Tarama sahnesi ---- */
+initAiScan();
 
 /* ---- Özel imleç (yaprak / renk damlası) ---- */
 initCursor();

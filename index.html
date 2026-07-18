@@ -116,6 +116,77 @@
           </div>
         </div>
       </section>
+
+      <!-- ============ AI TARAMA ============ -->
+      <section class="ai-scan" id="ai-scan">
+        <div class="ai-scan__stage" id="aiScanStage">
+          <!-- Arka plan geçişi: hero ile aynı teknik -->
+          <div class="bg-layer bg-night" aria-hidden="true">
+            <div class="orb orb--green"></div>
+            <div class="orb orb--orange"></div>
+          </div>
+          <div class="bg-layer bg-day" aria-hidden="true">
+            <div class="orb orb--green-day"></div>
+            <div class="orb orb--orange-day"></div>
+          </div>
+
+          <!-- Başlık -->
+          <div class="ai-scan__intro layer" data-layer="scan-intro">
+            <span class="eyebrow">AI Tarama</span>
+            <h2 class="ai-scan__title">Kameranı doğrult,<br />gerisini yapay zeka halletsin</h2>
+          </div>
+
+          <div class="ai-scan__scene">
+            <!-- Telefon + sincap -->
+            <div class="phone-wrap">
+              <div class="phone" id="scanPhone">
+                <div class="phone__notch"></div>
+                <div class="phone__screen">
+                  <!-- Ekran 1: Add Material -->
+                  <div class="screen screen--add" id="screenAdd">
+                    <span class="screen__title">Add Material</span>
+                    <div class="screen__photo-slot" aria-hidden="true">
+                      <span>📷</span>
+                    </div>
+                    <button class="scan-btn" id="scanBtn" type="button">
+                      <span aria-hidden="true">✨</span> Scan Photo
+                    </button>
+                  </div>
+                  <!-- Ekran 2: Item Details -->
+                  <div class="screen screen--details" id="screenDetails">
+                    <span class="screen__title">Item Details</span>
+                    <div class="item-preview" aria-hidden="true">
+                      <img src="/assets/scan/apple.svg" alt="" />
+                    </div>
+                    <div class="item-field">
+                      <span class="item-field__label">Ürün</span>
+                      <span class="item-field__value">Elma</span>
+                    </div>
+                    <div class="item-field">
+                      <span class="item-field__label">Kategori</span>
+                      <span class="item-field__value item-field__value--tag">Fruits &amp; Vegetables</span>
+                    </div>
+                    <button class="save-btn" id="saveBtn" type="button">Save</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="layer scan-squirrel" data-layer="scan-squirrel" id="scanSquirrel">
+                <img src="/assets/hero/squirrel-welcome.png" alt="Sincap, Scan Photo butonunu işaret ediyor" />
+              </div>
+            </div>
+
+            <!-- Havada süzülen elma + lazer -->
+            <div class="scan-object-wrap">
+              <div class="layer scan-object" data-layer="scan-apple" id="scanApple">
+                <img src="/assets/scan/apple.svg" alt="Taranan elma" />
+              </div>
+              <div class="scan-laser" id="scanLaser" aria-hidden="true"></div>
+              <div class="scan-ring" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <script type="module" src="/src/main.js"></script>
