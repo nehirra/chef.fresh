@@ -827,56 +827,73 @@ img {
 /* ============================================================
    ÖZELLİKLER
    ============================================================ */
+/* .features: scroll odası (hero/ai-scan ile aynı sticky-pin tekniği) —
+   kartlar sırayla öne çıkarken bölüm ekranda sabit kalır, scrub ile
+   ilerleme scroll'a bağlıdır. */
 .features {
-  padding: 120px clamp(24px, 6vw, 96px);
+  position: relative;
+  height: 240vh;
+  width: 100%;
+}
+.features__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--nav-h) clamp(24px, 6vw, 96px) 40px;
   background: var(--bg-day);
   color: var(--ink-day);
+  overflow: hidden;
 }
 .features .eyebrow { color: var(--fresh-deep); }
 .features__intro {
   text-align: center;
-  max-width: 640px;
-  margin: 0 auto 56px;
+  max-width: 700px;
+  margin: 0 auto 64px;
 }
 .features__title {
-  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  font-size: clamp(2rem, 5vw, 3.4rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
 .features__subtitle {
-  margin-top: 14px;
-  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  margin-top: 18px;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
   color: var(--ink-day-soft);
 }
 .features__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
-  max-width: 1100px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
 }
 .feature-card {
   background: #fff;
   border: 1px solid rgba(31, 42, 32, 0.06);
   border-radius: var(--radius);
-  padding: 28px 24px;
+  padding: 36px 28px;
   box-shadow: 0 14px 34px rgba(20, 30, 22, 0.06);
 }
 .feature-card__icon {
-  font-size: 2rem;
+  font-size: 2.4rem;
   display: block;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 }
 .feature-card__title {
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   font-weight: 800;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 .feature-card__desc {
-  font-size: 0.92rem;
+  font-size: 0.98rem;
   color: var(--ink-day-soft);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 /* ============================================================
@@ -1035,7 +1052,18 @@ img {
 }
 
 @media (max-width: 640px) {
-  .features,
+  .features__stage {
+    padding-top: calc(var(--nav-h) + 8px);
+    padding-bottom: 24px;
+  }
+  .features__intro { margin-bottom: 18px; }
+  .features__title { font-size: 1.3rem; }
+  .features__subtitle { margin-top: 8px; font-size: 0.82rem; }
+  .features__grid { grid-template-columns: 1fr; gap: 10px; }
+  .feature-card { padding: 14px 16px; }
+  .feature-card__icon { font-size: 1.5rem; margin-bottom: 6px; }
+  .feature-card__title { font-size: 0.9rem; margin-bottom: 3px; }
+  .feature-card__desc { font-size: 0.76rem; line-height: 1.35; }
   .contact {
     padding-top: 80px;
     padding-bottom: 80px;

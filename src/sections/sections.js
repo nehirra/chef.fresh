@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Özellikler / İletişim / İndir: hero ve ai-scan'daki gibi pinlenen sahneler
+ * Contact / Download: hero/ai-scan/features'daki gibi pinlenen sahneler
  * değil, normal akışta duran statik bölümler — bu yüzden yalnızca hafif bir
  * scroll-reveal (fade + translateY) yeterli.
  */
