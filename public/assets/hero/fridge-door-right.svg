@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 520" fill="none">
+  <defs>
+    <linearGradient id="doorR" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f2fbf6"/>
+      <stop offset="1" stop-color="#d3ead9"/>
+    </linearGradient>
+  </defs>
+  <!-- sağ kapak: gövdenin sağ yarısı -->
+  <path d="M332 48 C332 25 315 8 292 8 L170 8 L170 512 L292 512 C315 512 332 495 332 489 Z"
+        fill="url(#doorR)" stroke="#b4d8c4" stroke-width="2"/>
+  <!-- tutamak -->
+  <rect x="181" y="210" width="9" height="100" rx="4.5" fill="#9ec4ac"/>
+</svg>

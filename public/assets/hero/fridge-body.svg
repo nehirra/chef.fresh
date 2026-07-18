@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 520" fill="none">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e8f5ee"/>
+      <stop offset="1" stop-color="#c9e6d5"/>
+    </linearGradient>
+    <linearGradient id="cavity" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7fffb"/>
+      <stop offset="1" stop-color="#e3f6ec"/>
+    </linearGradient>
+  </defs>
+  <!-- gövde -->
+  <rect x="8" y="8" width="324" height="504" rx="40" fill="url(#body)" stroke="#b4d8c4" stroke-width="2"/>
+  <!-- iç boşluk (kapaklar açılınca görünen ferah alan) -->
+  <rect x="30" y="30" width="280" height="460" rx="26" fill="url(#cavity)"/>
+  <!-- iç raflar -->
+  <g stroke="#bfe0cd" stroke-width="3" opacity="0.9">
+    <line x1="46" y1="150" x2="294" y2="150"/>
+    <line x1="46" y1="270" x2="294" y2="270"/>
+    <line x1="46" y1="390" x2="294" y2="390"/>
+  </g>
+</svg>

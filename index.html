@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Chef Fresh — Mutfak envanteriniz artık cebinizde. Malzemelerinizi ve tazelik durumunu akıllıca takip edin."
+    />
+    <title>Chef Fresh — Mutfak Envanteriniz Artık Cebinizde</title>
+  </head>
+  <body>
+    <!-- Özel imleç (yaprak / renk damlası) -->
+    <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+    <!-- ============ ÜST MENÜ ============ -->
+    <header class="navbar" id="navbar">
+      <div class="navbar__cluster">
+        <button class="navbar__item" id="langToggle" type="button" aria-label="Dili değiştir">
+          <span class="navbar__item-icon" id="langIcon">🇹🇷</span>
+        </button>
+        <button class="navbar__item" id="themeToggle" type="button" aria-label="Görünümü değiştir">
+          <span class="navbar__item-icon" id="themeIcon">🌙</span>
+        </button>
+      </div>
+
+      <nav class="navbar__center">
+        <a class="navbar__link" href="#ozellikler">Özellikler</a>
+        <a class="navbar__brand" href="#hero">
+          <img src="/assets/brand/app-icon.jpg" alt="Chef Fresh" class="navbar__brand-mark" />
+          <span class="navbar__brand-text">Chef Fresh</span>
+        </a>
+        <a class="navbar__link" href="#iletisim">İletişim</a>
+      </nav>
+
+      <div class="navbar__cluster">
+        <a class="navbar__cta" href="#indir">
+          <img src="/assets/brand/app-icon.jpg" alt="" class="navbar__cta-icon" />
+          <span>Uygulamayı Al</span>
+          <span class="navbar__cta-badge">4.9★</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <!-- ============ HERO ============ -->
+      <section class="hero" id="hero">
+        <!-- pinlenen sahne: tüm katmanlar burada üst üste biner -->
+        <div class="hero__stage" id="heroStage">
+          <!-- Arka plan geçişi: iki gradyan katman, opacity crossfade (compositor) -->
+          <div class="bg-layer bg-night" aria-hidden="true">
+            <div class="orb orb--green"></div>
+            <div class="orb orb--orange"></div>
+          </div>
+          <div class="bg-layer bg-day" aria-hidden="true">
+            <div class="orb orb--green-day"></div>
+            <div class="orb orb--orange-day"></div>
+          </div>
+
+          <!-- Metin bloğu -->
+          <div class="hero__intro layer" data-layer="intro" data-depth="0.2">
+            <div class="hero__logo">
+              <img src="/assets/brand/app-icon.jpg" alt="" class="hero__logo-mark" />
+              <span class="hero__logo-text">Chef&nbsp;Fresh</span>
+            </div>
+            <h1 class="hero__title">Mutfak Envanteriniz<br />Artık Cebinizde</h1>
+            <p class="hero__subtitle">
+              Tazeliği koru, israfı önle. Sincap yardımcınız kapıyı açmaya hazır.
+            </p>
+          </div>
+
+          <!-- Buzdolabı: gövde + iki kapak (her biri swappable katman) -->
+          <div class="fridge" id="fridge">
+            <!-- Soğuk parıltı / buhar (kapak açılınca görünür) -->
+            <div class="layer glow" data-layer="glow" data-depth="0.1" aria-hidden="true">
+              <img src="/assets/hero/glow.svg" alt="" />
+            </div>
+
+            <!-- İç kadraj: sincap buradan çıkar -->
+            <div class="fridge__interior">
+              <div class="layer squirrel" data-layer="squirrel" data-depth="0.5">
+                <img src="/assets/hero/squirrel-welcome.png" alt="Chef Fresh aşçı sincap maskotu, göz kırpıp karşılıyor" />
+              </div>
+            </div>
+
+            <!-- Gövde -->
+            <div class="layer fridge__body" data-layer="fridge-body" data-depth="0.3">
+              <img src="/assets/hero/fridge-body.svg" alt="Minimalist buzdolabı" />
+            </div>
+
+            <!-- Kapaklar (üstte, açılıp yana kayar) -->
+            <div class="layer fridge__door fridge__door--left" data-layer="door-left" data-depth="0.35">
+              <img src="/assets/hero/fridge-door-left.svg" alt="" />
+            </div>
+            <div class="layer fridge__door fridge__door--right" data-layer="door-right" data-depth="0.35">
+              <img src="/assets/hero/fridge-door-right.svg" alt="" />
+            </div>
+
+            <!-- Bilgi kartları: kodla çizilir, buzdolabından fırlar -->
+            <div class="layer card card--fresh" data-layer="card-fresh" data-depth="0.8">
+              <span class="card__value">7</span>
+              <span class="card__label">Fresh</span>
+              <span class="card__dot"></span>
+            </div>
+            <div class="layer card card--expired" data-layer="card-expired" data-depth="0.9">
+              <span class="card__value">0</span>
+              <span class="card__label">Expired</span>
+              <span class="card__dot"></span>
+            </div>
+          </div>
+
+          <!-- Aşağı kaydır ipucu -->
+          <div class="scroll-hint layer" data-layer="hint" id="scrollHint" aria-hidden="true">
+            <span>Aşağı Kaydır</span>
+            <span class="scroll-hint__arrow"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

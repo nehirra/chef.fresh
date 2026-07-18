@@ -1,0 +1,513 @@
+/* ============================================================
+   Chef Fresh — Tasarım tokenları
+   ============================================================ */
+:root {
+  /* Marka renkleri: taze yeşil (kimlik) + turuncu (iştah/sıcaklık vurgusu) */
+  --fresh: #22c55e;
+  --fresh-glow: #4ade80;
+  --fresh-deep: #15803d; /* açık (krem) zeminde kontrast için koyu yeşil */
+  --orange: #fb923c;
+  --orange-deep: #ea580c; /* açık zeminde kontrast için koyu turuncu */
+  --expired: #ef4444;
+
+  /* Dark mode: koyu / premium. Light mode: krem / organik. */
+  --bg-night: #0b1710;
+  --bg-day: #f7f1e3;
+
+  --ink-night: #f5fbf3;
+  --ink-night-soft: rgba(245, 251, 243, 0.66);
+  --ink-day: #1f2a20;
+  --ink-day-soft: rgba(31, 42, 32, 0.62);
+
+  /* Varsayılan (gece) — hero.js scoped elementlerde gündüze geçişi tween eder */
+  --ink-soft: var(--ink-night-soft);
+
+  --radius: 22px;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --nav-h: 84px;
+}
+
+/* ============================================================
+   Reset & temel
+   ============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto; /* GSAP kendi scroll'unu yönetir */
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg-night);
+  color: var(--ink-night);
+  overflow-x: hidden;
+  cursor: none; /* özel imleç */
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ============================================================
+   ÜST MENÜ
+   ============================================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-h);
+  z-index: 50;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  padding-inline: clamp(20px, 4vw, 56px);
+  background: transparent;
+}
+
+.navbar__cluster {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.navbar__cluster:last-child {
+  justify-content: flex-end;
+}
+
+/* Sol butonlar: sade, sadece ikon */
+.navbar__item {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+.navbar__item:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(1.06);
+}
+.navbar__item-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.navbar__center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 4vw, 48px);
+  justify-self: center;
+}
+.navbar__link {
+  color: var(--ink-night-soft);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.navbar__link:hover {
+  color: var(--ink-night);
+}
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  color: var(--ink-night);
+}
+.navbar__brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 4px 14px rgba(251, 146, 60, 0.35);
+}
+.navbar__brand-text {
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.navbar__cta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #111814;
+  color: #fff;
+  text-decoration: none;
+  padding: 9px 20px 9px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.navbar__cta-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.navbar__cta-badge {
+  position: absolute;
+  top: -9px;
+  right: -8px;
+  background: var(--orange);
+  color: #1f1305;
+  font-size: 0.66rem;
+  font-weight: 800;
+  padding: 3px 7px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(251, 146, 60, 0.5);
+}
+
+@media (max-width: 860px) {
+  .navbar__link,
+  .navbar__item-text {
+    display: none;
+  }
+  .navbar { grid-template-columns: auto 1fr auto; }
+  .navbar__cta span:not(.navbar__cta-badge) { display: none; }
+  .navbar__cta { padding: 8px; }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+/* .hero, sticky çocuğun içinde "kayacağı" scroll odasını sağlar.
+   pin:true + JS spacer yerine native position:sticky kullanılır —
+   compositor tarafından yönetilir, boş kare / boyama sorunu çıkarmaz. */
+.hero {
+  position: relative;
+  height: 280vh;
+  width: 100%;
+}
+
+.hero__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(16px, 4vw, 64px);
+  padding-inline: clamp(24px, 6vw, 96px);
+  /* bg-night/bg-day (inset:0) tam viewport'u kaplasın diye height/top
+     tam ekran; içerik navbar'ın altına inmesi için padding-top kullanılır
+     (transparan navbar'ın arkasında da gece/gündüz geçişi görünsün). */
+  padding-top: var(--nav-h);
+  overflow: hidden;
+}
+
+@media (max-width: 860px) {
+  .hero__stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    padding-inline: 24px;
+    padding-top: 6vh;
+  }
+}
+
+/* ---- Arka plan geçiş katmanları (opacity crossfade = compositor, paint yok) ---- */
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.bg-night {
+  background: radial-gradient(120% 90% at 20% 10%, #16332a 0%, var(--bg-night) 55%);
+}
+.bg-day {
+  background: radial-gradient(120% 90% at 20% 10%, #ffffff 0%, var(--bg-day) 60%);
+  opacity: 0; /* timeline ile 0 -> 1 */
+}
+
+/* Parıltı küreleri — statik, düşük blur (bir kez boyanır) */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+}
+.orb--green,
+.orb--green-day {
+  width: 42vmax;
+  height: 42vmax;
+  background: radial-gradient(circle at 30% 30%, var(--fresh-glow), transparent 70%);
+  top: -10vmax;
+  left: -8vmax;
+  opacity: 0.5;
+}
+.orb--orange,
+.orb--orange-day {
+  width: 38vmax;
+  height: 38vmax;
+  background: radial-gradient(circle at 60% 40%, var(--orange), transparent 70%);
+  bottom: -12vmax;
+  right: -6vmax;
+  opacity: 0.3;
+}
+.orb--green-day { opacity: 0.35; }
+.orb--orange-day { opacity: 0.25; }
+
+/* ---- Katman temel (GPU hızlandırma) ---- */
+.layer {
+  position: absolute;
+  will-change: transform, opacity; /* yalnızca hareket eden katmanlar */
+}
+
+/* ---- Metin bloğu (sol sütun, buzdolabı açılırken sabit kalır) ---- */
+.hero__intro {
+  position: relative;
+  text-align: left;
+  z-index: 6;
+  max-width: 480px;
+  justify-self: start;
+}
+@media (max-width: 860px) {
+  .hero__intro {
+    text-align: center;
+    justify-self: center;
+    max-width: 90vw;
+  }
+}
+.hero__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.hero__logo-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 6px 18px rgba(251, 146, 60, 0.4);
+}
+.hero__logo-text {
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.3px;
+}
+.hero__title {
+  font-size: clamp(2rem, 6vw, 4.2rem);
+  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.hero__subtitle {
+  margin-top: 16px;
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  color: var(--ink-soft);
+}
+
+/* ---- Buzdolabı yerleşimi ---- */
+.fridge {
+  position: relative;
+  width: min(320px, 30vw);
+  aspect-ratio: 340 / 520;
+  z-index: 3;
+  justify-self: center;
+  /* Kapılar menteşeden 3D döner (perspective) — translateX gerekmez,
+     bu yüzden sağ sütunda viewport kenarına yakın olsa da taşmaz. */
+  perspective: 1000px;
+}
+@media (max-width: 860px) {
+  .fridge { width: min(300px, 68vw); }
+}
+/* Tam kaplayan görsel katmanlar (kartlar HARİÇ — onlar kendi boyutunu alır) */
+.fridge__body,
+.fridge__door,
+.glow {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.fridge__body img,
+.fridge__door img,
+.glow img,
+.squirrel img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.fridge__body { z-index: 2; }
+
+/* İç kadraj — sincap gövdenin ÖNÜNDE, kapakların ARKASINDA emerge eder.
+   overflow:hidden ile sincap buzdolabı içinden çıkıyormuş gibi kırpılır. */
+.fridge__interior {
+  position: absolute;
+  inset: 5% 7% 8% 7%;
+  z-index: 3;
+  overflow: hidden;
+  border-radius: 18px;
+}
+.squirrel {
+  top: 8%;
+  left: 50%;
+  width: 92%;
+  height: 92%;
+  transform: translate(-50%, 55%) scale(0.7);
+  opacity: 0;
+}
+
+/* Kapaklar — üstte, transform-origin kenarlarda (menteşe), 3D döner */
+.fridge__door {
+  z-index: 4;
+  backface-visibility: hidden;
+}
+.fridge__door--left { transform-origin: left center; }
+.fridge__door--right { transform-origin: right center; }
+
+/* Soğuk parıltı */
+.glow {
+  z-index: 0;
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+/* ---- Bilgi kartları (glassmorphism) ---- */
+.card {
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 14px 18px;
+  min-width: 116px;
+  border-radius: 18px;
+  /* Cam görünümü: backdrop-filter yerine yarı-opak katı zemin (paint-ucuz) */
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+  opacity: 0;
+}
+.card__value {
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.card__label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  /* Cam kartın hem koyu hem açık zeminde okunur kalması için sabit slate ton */
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.card__dot {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+.card--fresh {
+  top: 22%;
+  left: -34%;
+}
+.card--fresh .card__value { color: var(--fresh); }
+.card--fresh .card__dot {
+  background: var(--fresh);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+}
+.card--expired {
+  bottom: 20%;
+  right: -30%;
+}
+.card--expired .card__value { color: var(--expired); }
+.card--expired .card__dot {
+  background: var(--expired);
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.22);
+}
+
+/* ---- Aşağı kaydır ipucu ---- */
+.scroll-hint {
+  bottom: 4vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  z-index: 6;
+}
+.scroll-hint__arrow {
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  animation: bob 1.6s ease-in-out infinite;
+}
+@keyframes bob {
+  0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.4; }
+  50% { transform: rotate(45deg) translate(4px, 4px); opacity: 1; }
+}
+
+/* ============================================================
+   Özel imleç
+   ============================================================ */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50% 50% 50% 0; /* yaprak / damla */
+  background: linear-gradient(135deg, var(--fresh), var(--fresh-glow));
+  /* konum + merkezleme + 45° rotasyon gsap tarafından yönetilir */
+  pointer-events: none;
+  z-index: 9999;
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  will-change: transform;
+}
+.cursor--active {
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, rgba(251, 146, 60, 0.35), rgba(234, 88, 12, 0.15));
+  border: 1.5px solid var(--orange);
+}
+
+/* Dokunmatik / imleçsiz cihazlar: özel imleç kapalı */
+@media (hover: none), (pointer: coarse) {
+  body { cursor: auto; }
+  .cursor { display: none; }
+}
+
+/* ============================================================
+   Erişilebilirlik — hareket azaltma
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; }
+  .scroll-hint { display: none; }
+}
