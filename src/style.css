@@ -1103,6 +1103,71 @@ img {
   .site-footer { padding-top: 10px; font-size: 0.65rem; }
 }
 
+/* ============================================================
+   LEGAL (Privacy Policy vb. — bağımsız, statik ekran)
+   ============================================================ */
+.legal {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--nav-h) + 48px) clamp(24px, 6vw, 96px) 24px;
+  background: var(--bg-night);
+  color: var(--ink-night);
+}
+.legal__content {
+  flex: 1;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.legal__title {
+  margin-top: 10px;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.legal__updated {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: var(--ink-night-soft);
+}
+.legal__body {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--ink-night-soft);
+}
+.legal__body h2 {
+  margin-top: 18px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ink-night);
+}
+.legal__body ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 22px;
+}
+.legal__body li {
+  list-style: disc;
+}
+.legal__body strong {
+  color: var(--ink-night);
+  font-weight: 700;
+}
+.legal .site-footer {
+  margin-top: 48px;
+}
+
+@media (max-width: 640px) {
+  .legal { padding-top: calc(var(--nav-h) + 24px); }
+  .legal__body { font-size: 0.9rem; }
+}
+
 /* ---- Scroll-reveal: JS (sections.js) opacity/translateY'yi animasyonla 1/0'a taşır ---- */
 .reveal {
   opacity: 0;
