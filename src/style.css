@@ -204,7 +204,7 @@ img {
    compositor tarafından yönetilir, boş kare / boyama sorunu çıkarmaz. */
 .hero {
   position: relative;
-  height: 280vh;
+  height: 100vh;
   width: 100%;
 }
 
@@ -335,139 +335,40 @@ img {
   color: var(--ink-soft);
 }
 
-/* ---- Buzdolabı yerleşimi ---- */
-.fridge {
+/* ---- Hero showcase video (sağ sütun, sürekli döngü — scroll'a bağlı değil) ---- */
+/* Videonun kendi arka planı krem-değil (taupe) olduğundan, kenarları krem
+   zemine eritip (mask) ve tonu hafifçe kreme çekip (filter) buzdolabının
+   sayfada "havada süzülüyor" gibi görünmesini sağlarız — sert dikdörtgen yok. */
+.hero__media {
   position: relative;
-  width: min(320px, 30vw);
-  aspect-ratio: 340 / 520;
   z-index: 3;
   justify-self: center;
-  /* Kapılar menteşeden 3D döner (perspective) — translateX gerekmez,
-     bu yüzden sağ sütunda viewport kenarına yakın olsa da taşmaz. */
-  perspective: 1000px;
+  width: min(360px, 36vw);
+  aspect-ratio: 720 / 1158;
+  /* Dikeyde grid ortasından biraz yukarı kaydır */
+  transform: translateY(-5vh);
 }
 @media (max-width: 860px) {
-  .fridge { width: min(300px, 68vw); }
+  .hero__media { width: min(320px, 76vw); }
 }
-/* Tam kaplayan görsel katmanlar (kartlar HARİÇ — onlar kendi boyutunu alır) */
-.fridge__body,
-.fridge__door,
-.glow {
-  top: 0;
-  left: 0;
+.hero__video {
   width: 100%;
   height: 100%;
-}
-.fridge__body img,
-.fridge__door img,
-.glow img,
-.squirrel img,
-.squirrel video {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.fridge__body { z-index: 2; }
-
-/* İç kadraj — sincap gövdenin ÖNÜNDE, kapakların ARKASINDA emerge eder.
-   overflow:hidden ile sincap buzdolabı içinden çıkıyormuş gibi kırpılır. */
-.fridge__interior {
-  position: absolute;
-  inset: 5% 7% 8% 7%;
-  z-index: 3;
-  overflow: hidden;
-  border-radius: 18px;
-}
-.squirrel {
-  top: 8%;
-  left: 50%;
-  width: 92%;
-  height: 92%;
-  transform: translate(-50%, 55%) scale(0.7);
-  opacity: 0;
-}
-.squirrel img,
-.squirrel video {
-  position: absolute;
-  inset: 0;
-}
-.squirrel__video {
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-.squirrel.has-video .squirrel__img { opacity: 0; }
-.squirrel.has-video .squirrel__video { opacity: 1; }
-
-/* Kapaklar — üstte, transform-origin kenarlarda (menteşe), 3D döner */
-.fridge__door {
-  z-index: 4;
-  backface-visibility: hidden;
-}
-.fridge__door--left { transform-origin: left center; }
-.fridge__door--right { transform-origin: right center; }
-
-/* Soğuk parıltı */
-.glow {
-  z-index: 0;
-  opacity: 0;
-  transform: scale(0.9);
-}
-
-/* ---- Bilgi kartları (glassmorphism) ---- */
-.card {
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-  padding: 14px 18px;
-  min-width: 116px;
-  border-radius: 18px;
-  /* Cam görünümü: backdrop-filter yerine yarı-opak katı zemin (paint-ucuz) */
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
-  opacity: 0;
-}
-.card__value {
-  font-size: 1.9rem;
-  font-weight: 800;
-  line-height: 1;
-}
-.card__label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  /* Cam kartın hem koyu hem açık zeminde okunur kalması için sabit slate ton */
-  color: #64748b;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-.card__dot {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-}
-.card--fresh {
-  top: 22%;
-  left: -34%;
-}
-.card--fresh .card__value { color: var(--fresh); }
-.card--fresh .card__dot {
-  background: var(--fresh);
-  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
-}
-.card--expired {
-  bottom: 20%;
-  right: -30%;
-}
-.card--expired .card__value { color: var(--expired); }
-.card--expired .card__dot {
-  background: var(--expired);
-  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.22);
+  object-fit: cover;
+  display: block;
+  /* Taupe backdrop'u krem (#f7f1e3) tonuna yaklaştır */
+  filter: brightness(1.16) saturate(0.92) contrast(0.98);
+  /* Dört kenarı da krem zemine erit: yatay + dikey fade'in KESİŞİMİ
+     (mask-composite). Böylece üst kenar dahil hiçbir tarafta sert
+     dikdörtgen sınır kalmaz — buzdolabı sayfada süzülür. */
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 26%, #000 88%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 26%, #000 88%, transparent 100%);
+  mask-composite: intersect;
 }
 
 /* ---- Aşağı kaydır ipucu ---- */

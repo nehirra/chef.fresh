@@ -69,56 +69,18 @@
             </p>
           </div>
 
-          <!-- Fridge: body + two doors (each a swappable layer) -->
-          <div class="fridge" id="fridge">
-            <!-- Cold glow / mist (visible when the door opens) -->
-            <div class="layer glow" data-layer="glow" data-depth="0.1" aria-hidden="true">
-              <img src="assets/hero/glow.svg" alt="" />
-            </div>
-
-            <!-- Interior frame: squirrel appears here -->
-            <div class="fridge__interior">
-              <div class="layer squirrel" data-layer="squirrel" data-depth="0.5">
-                <img
-                  src="assets/hero/squirrel-welcome.png"
-                  alt="Chef Fresh's chef squirrel mascot winking hello"
-                  class="squirrel__img"
-                />
-                <!-- Progressive enhancement: silently 404s and stays hidden until a real
-                     clip is dropped in at these paths (no other code changes needed).
-                     Bake a solid backing color into the footage that roughly matches the
-                     fridge interior — Safari doesn't support WebM alpha transparency. -->
-                <video class="squirrel__video" muted playsinline preload="metadata" aria-hidden="true">
-                  <source src="assets/hero/squirrel-welcome.webm" type="video/webm" />
-                  <source src="assets/hero/squirrel-welcome.mp4" type="video/mp4" />
-                </video>
-              </div>
-            </div>
-
-            <!-- Body -->
-            <div class="layer fridge__body" data-layer="fridge-body" data-depth="0.3">
-              <img src="assets/hero/fridge-body.svg" alt="Minimalist fridge" />
-            </div>
-
-            <!-- Doors (top layer, open and slide aside) -->
-            <div class="layer fridge__door fridge__door--left" data-layer="door-left" data-depth="0.35">
-              <img src="assets/hero/fridge-door-left.svg" alt="" />
-            </div>
-            <div class="layer fridge__door fridge__door--right" data-layer="door-right" data-depth="0.35">
-              <img src="assets/hero/fridge-door-right.svg" alt="" />
-            </div>
-
-            <!-- Info cards: drawn in code, pop out of the fridge -->
-            <div class="layer card card--fresh" data-layer="card-fresh" data-depth="0.8">
-              <span class="card__value">7</span>
-              <span class="card__label">Fresh</span>
-              <span class="card__dot"></span>
-            </div>
-            <div class="layer card card--expired" data-layer="card-expired" data-depth="0.9">
-              <span class="card__value">0</span>
-              <span class="card__label">Expired</span>
-              <span class="card__dot"></span>
-            </div>
+          <!-- Hero showcase: continuously looping video (autoplays, not scroll-driven) -->
+          <div class="hero__media">
+            <video
+              class="hero__video"
+              src="assets/hero/hero-loop.mp4"
+              poster="assets/hero/hero-loop-poster.jpg"
+              autoplay
+              muted
+              loop
+              playsinline
+              aria-label="Chef Fresh app in action"
+            ></video>
           </div>
 
           <!-- Scroll-down hint -->
