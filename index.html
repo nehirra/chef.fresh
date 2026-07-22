@@ -79,7 +79,19 @@
             <!-- Interior frame: squirrel appears here -->
             <div class="fridge__interior">
               <div class="layer squirrel" data-layer="squirrel" data-depth="0.5">
-                <img src="assets/hero/squirrel-welcome.png" alt="Chef Fresh's chef squirrel mascot winking hello" />
+                <img
+                  src="assets/hero/squirrel-welcome.png"
+                  alt="Chef Fresh's chef squirrel mascot winking hello"
+                  class="squirrel__img"
+                />
+                <!-- Progressive enhancement: silently 404s and stays hidden until a real
+                     clip is dropped in at these paths (no other code changes needed).
+                     Bake a solid backing color into the footage that roughly matches the
+                     fridge interior — Safari doesn't support WebM alpha transparency. -->
+                <video class="squirrel__video" muted playsinline preload="metadata" aria-hidden="true">
+                  <source src="assets/hero/squirrel-welcome.webm" type="video/webm" />
+                  <source src="assets/hero/squirrel-welcome.mp4" type="video/mp4" />
+                </video>
               </div>
             </div>
 
@@ -176,31 +188,26 @@
                     <div class="ai-card">
                       <span class="ai-card__title">AI Scan</span>
                       <p class="ai-card__subtitle">Snap a photo, let AI handle the rest</p>
-                      <button class="scan-btn" id="scanBtn" type="button">
-                        <span aria-hidden="true">📷</span> Scan Photo
-                      </button>
                     </div>
-                  </div>
-                  <!-- Ekran 2: Item Details -->
-                  <div class="screen screen--details" id="screenDetails">
-                    <span class="screen__title">Item Details</span>
-                    <div class="item-preview" aria-hidden="true">
-                      <img src="assets/scan/apple.svg" alt="" />
-                    </div>
-                    <div class="item-field">
-                      <span class="item-field__label">Name</span>
-                      <span class="item-field__value">Apple</span>
-                    </div>
-                    <div class="item-field">
-                      <span class="item-field__label">Category</span>
-                      <span class="category-pill">
-                        <span aria-hidden="true">🍃</span> Fruits &amp; Vegetables
-                      </span>
-                    </div>
-                    <button class="save-btn" id="saveBtn" type="button">
-                      <img src="assets/scan/fridge-glyph.svg" alt="" aria-hidden="true" />
-                      Save
+                    <button class="scan-btn" id="scanBtn" type="button">
+                      <span aria-hidden="true">📷</span> Scan Photo
                     </button>
+                  </div>
+                  <!-- Ekran 2: Review Detected Items (çoklu ürün sonucu) -->
+                  <div class="screen screen--details screen--review" id="screenDetails">
+                    <img
+                      class="review-shot"
+                      src="assets/scan/review-items.webp"
+                      alt="Review Detected Items screen listing groceries the AI recognized from the photo"
+                    />
+                  </div>
+                  <!-- Ekran 3: Pantry Inventory (kaydedilen ürünler kategorilere göre) -->
+                  <div class="screen screen--details screen--review" id="screenInventory">
+                    <img
+                      class="review-shot"
+                      src="assets/scan/pantry-inventory.png"
+                      alt="Pantry inventory screen showing saved groceries grouped by category with freshness bars"
+                    />
                   </div>
                 </div>
               </div>
@@ -213,7 +220,7 @@
             <!-- Floating apple + laser -->
             <div class="scan-object-wrap">
               <div class="layer scan-object" data-layer="scan-apple" id="scanApple">
-                <img src="assets/scan/apple.svg" alt="Scanned apple" />
+                <img src="assets/scan/fresh-groceries-flatlay.webp" alt="Fresh groceries being scanned" />
               </div>
               <div class="scan-laser" id="scanLaser" aria-hidden="true"></div>
               <div class="scan-ring" aria-hidden="true"></div>

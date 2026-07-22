@@ -25,6 +25,7 @@ export function initHero() {
   const doorRight = document.querySelector(".fridge__door--right");
   const glow = document.querySelector(".glow");
   const squirrel = document.querySelector(".squirrel");
+  const squirrelVideo = document.querySelector(".squirrel__video");
   const cardFresh = document.querySelector(".card--fresh");
   const cardExpired = document.querySelector(".card--expired");
   const logoText = document.querySelector(".hero__logo-text");
@@ -59,6 +60,14 @@ export function initHero() {
   // Kartların başlangıcı: buzdolabının içinde (merkeze yakın, küçük, görünmez)
   gsap.set(cardFresh, { x: 90, y: 50, scale: 0.6 });
   gsap.set(cardExpired, { x: -80, y: -40, scale: 0.6 });
+
+  // Video slot: assets/hero/squirrel-welcome.{webm,mp4} düşene kadar sessizce
+  // devre dışı kalır (404 olur, PNG görünür kalır) — dosya eklenince otomatik devreye girer.
+  if (squirrelVideo) {
+    squirrelVideo.addEventListener("loadeddata", () => {
+      squirrel.classList.add("has-video");
+    });
+  }
 
   // --- Sürekli "nefes alma": kapalı buzdolabı hafifçe süzülür ---
   gsap.to(fridge, {
@@ -100,8 +109,17 @@ export function initHero() {
     .to(doorRight, { rotationY: 115, ease: "power2.inOut" }, 0.05)
     .to(glow, { opacity: 0.9, scale: 1, ease: "power1.out" }, 0.15);
 
-  // 4) Sincap içeriden neşeyle çıkar
-  tl.to(squirrel, { opacity: 1, y: "-6%", scale: 1, ease: "back.out(1.6)" }, 0.35);
+  // 4) Sincap içeriden neşeyle çıkar; video hazırsa baştan bir kez oynatılır
+  tl.to(squirrel, { opacity: 1, y: "-6%", scale: 1, ease: "back.out(1.6)" }, 0.35).call(
+    () => {
+      if (squirrelVideo && squirrelVideo.readyState >= 2) {
+        squirrelVideo.currentTime = 0;
+        squirrelVideo.play().catch(() => {});
+      }
+    },
+    null,
+    0.35
+  );
 
   // 5) Bilgi kartları buzdolabından fırlar ve süzülür
   tl.to(cardFresh, { opacity: 1, x: 0, y: 0, scale: 1, ease: "back.out(1.4)" }, 0.5)

@@ -9,6 +9,13 @@
       "autoPort": true
     },
     {
+      "name": "chef-fresh-dev-root",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--base=/", "--port=5175", "--strictPort"],
+      "port": 5175,
+      "autoPort": false
+    },
+    {
       "name": "chef-fresh-preview",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "preview", "--", "--port", "4173"],

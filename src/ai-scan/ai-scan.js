@@ -25,7 +25,7 @@ export function initAiScan() {
   const scanBtn = document.querySelector("#scanBtn");
   const screenAdd = document.querySelector("#screenAdd");
   const screenDetails = document.querySelector("#screenDetails");
-  const saveBtn = document.querySelector("#saveBtn");
+  const screenInventory = document.querySelector("#screenInventory");
   const bgDay = document.querySelector("#ai-scan .bg-day");
   const catCards = gsap.utils.toArray(".cat-card");
 
@@ -45,7 +45,8 @@ export function initAiScan() {
     gsap.set(laser, { opacity: 0 });
     gsap.set(apple, { opacity: 0 });
     gsap.set(screenAdd, { opacity: 0 });
-    gsap.set(screenDetails, { opacity: 1, filter: "blur(0px)", scale: 1 });
+    gsap.set(screenDetails, { opacity: 0 });
+    gsap.set(screenInventory, { opacity: 1, filter: "blur(0px)", scale: 1 });
     gsap.set(bgDay, { opacity: 1 });
     catCards.forEach((c) => gsap.set(c, { opacity: 1, y: 0, ...cardTilt(c) }));
     return;
@@ -57,15 +58,7 @@ export function initAiScan() {
   gsap.set(squirrel, { opacity: 0, y: 24, scale: 0.85 });
   gsap.set(apple, { opacity: 0, y: -10 });
   gsap.set(screenDetails, { opacity: 0, filter: "blur(6px)", scale: 0.94 });
-
-  // Save butonu: sürekli "hazır" nabzı (scroll'dan bağımsız, hero'daki nefes gibi)
-  gsap.to(saveBtn, {
-    scale: 1.05,
-    duration: 0.9,
-    ease: "sine.inOut",
-    yoyo: true,
-    repeat: -1,
-  });
+  gsap.set(screenInventory, { opacity: 0, filter: "blur(6px)", scale: 0.94 });
 
   // Kategori kartları: başlangıçta üstte + görünmez, 3D eğimlerini korur.
   // Ayrıca hafif "süzülme" (yPercent) — scroll'un yönettiği y (px) ile
@@ -142,7 +135,23 @@ export function initAiScan() {
       duration: 0.2,
     }, 0.44);
 
-  // 5) Sincap görevini tamamladı — küçük bir "başardım" sıçraması
-  tl.to(squirrel, { y: -14, ease: "power1.out", duration: 0.08 }, 0.62)
-    .to(squirrel, { y: 0, ease: "bounce.out", duration: 0.1 }, 0.7);
+  // 5) Review kartı buzlu-cam geçişiyle Pantry Inventory ekranına döner
+  tl.to(screenDetails, {
+    opacity: 0,
+    scale: 0.94,
+    filter: "blur(6px)",
+    ease: "power1.in",
+    duration: 0.14,
+  }, 0.76)
+    .to(screenInventory, {
+      opacity: 1,
+      filter: "blur(0px)",
+      scale: 1,
+      ease: "power2.out",
+      duration: 0.2,
+    }, 0.82);
+
+  // 6) Sincap görevini tamamladı — küçük bir "başardım" sıçraması
+  tl.to(squirrel, { y: -14, ease: "power1.out", duration: 0.08 }, 0.66)
+    .to(squirrel, { y: 0, ease: "bounce.out", duration: 0.1 }, 0.74);
 }
