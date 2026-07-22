@@ -878,7 +878,7 @@ img {
    ============================================================ */
 .contact {
   padding: 120px clamp(24px, 6vw, 96px);
-  background: linear-gradient(180deg, var(--bg-day) 0%, var(--bg-night) 32%);
+  background: linear-gradient(180deg, var(--bg-day) 0, var(--bg-night) 115px);
   color: var(--ink-night);
   text-align: center;
 }
