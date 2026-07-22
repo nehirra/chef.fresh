@@ -763,6 +763,7 @@ img {
 .scan-object-wrap {
   position: relative;
   width: min(340px, 62vw);
+  margin-top: -84px;
 }
 .scan-object {
   position: relative;
@@ -877,7 +878,7 @@ img {
    ============================================================ */
 .contact {
   padding: 120px clamp(24px, 6vw, 96px);
-  background: var(--bg-night);
+  background: linear-gradient(180deg, var(--bg-day) 0%, var(--bg-night) 32%);
   color: var(--ink-night);
   text-align: center;
 }
