@@ -230,7 +230,9 @@ img {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
     padding-inline: 24px;
-    padding-top: 6vh;
+    /* Hero içeriği sabit (fixed) navbar'ın ALTINDAN başlamalı — aksi halde
+       hero logosu şeffaf navbar'ın arkasından görünüp "çift Chef Fresh" olur. */
+    padding-top: calc(var(--nav-h) + 2vh);
   }
 }
 
@@ -310,6 +312,14 @@ img {
   align-items: center;
   gap: 10px;
   margin-bottom: 18px;
+}
+/* Navbar zaten "Chef Fresh" markasını gösteriyor; mobilde tam altında
+   tekrar eden hero logosu gereksiz — gizle. (Bu kural .hero__logo temel
+   tanımından SONRA gelmeli, aksi halde eşit özgüllükte kaybeder.) */
+@media (max-width: 860px) {
+  .hero__logo {
+    display: none;
+  }
 }
 .hero__logo-mark {
   width: 38px;
