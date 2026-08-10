@@ -299,6 +299,8 @@ img {
   z-index: 6;
   max-width: 480px;
   justify-self: start;
+  margin-left: clamp(16px, 4vw, 56px);
+  margin-top: clamp(-64px, -6vw, -24px);
 }
 @media (max-width: 860px) {
   .hero__intro {

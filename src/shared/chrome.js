@@ -9,7 +9,7 @@ export function initCursor() {
   if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
 
   // gsap transform'u tamamen yönetir (merkezleme + yaprak rotasyonu dahil)
-  gsap.set(cursor, { xPercent: -50, yPercent: -50, rotation: 45 });
+  gsap.set(cursor, { xPercent: -50, yPercent: -50, rotation: 90 });
   const setX = gsap.quickTo(cursor, "x", { duration: 0.25, ease: "power3" });
   const setY = gsap.quickTo(cursor, "y", { duration: 0.25, ease: "power3" });
 
