@@ -3,15 +3,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const REST_SHADOW = "0 14px 34px rgba(20, 30, 22, 0.06)";
-const REST_BORDER = "rgba(31, 42, 32, 0.06)";
-const GLOW_SHADOW = "0 26px 54px rgba(34, 197, 94, 0.3)";
-const GLOW_BORDER = "rgba(34, 197, 94, 0.45)";
-
 /**
  * Features: hero/ai-scan'daki aynı sticky-pin mimarisi (position:sticky,
- * scrub timeline). Sahneye girişte başlık + kartlar belirir, ardından
- * scroll ilerledikçe kartlar sırayla (spot ışığı gibi) öne çıkar.
+ * scrub timeline). Sahneye girişte başlık + kartlar belirir. Işıklanma
+ * (glow) artık scroll'a değil hover'a bağlı — bkz. .feature-card:hover
+ * (style.css).
  */
 export function initFeatures() {
   const prefersReduced = window.matchMedia(
@@ -24,13 +20,7 @@ export function initFeatures() {
 
   if (prefersReduced) {
     gsap.set(intro, { opacity: 1, y: 0 });
-    gsap.set(cards, {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      boxShadow: REST_SHADOW,
-      borderColor: REST_BORDER,
-    });
+    gsap.set(cards, { opacity: 1, y: 0 });
     return;
   }
 
@@ -46,7 +36,7 @@ export function initFeatures() {
     },
   });
 
-  // 1) Sahneye giriş: başlık ve kartlar belirir
+  // Sahneye giriş: başlık ve kartlar belirir
   tl.to(intro, { opacity: 1, y: 0, ease: "power2.out", duration: 0.14 }, 0)
     .to(cards, {
       opacity: 1,
@@ -55,26 +45,4 @@ export function initFeatures() {
       duration: 0.16,
       stagger: 0.04,
     }, 0.08);
-
-  // 2) Scroll ilerledikçe kartlar sırayla öne çıkar (spot ışığı)
-  const perCard = 0.2;
-  let t = 0.3;
-  cards.forEach((card) => {
-    tl.to(card, {
-      y: -10,
-      scale: 1.035,
-      boxShadow: GLOW_SHADOW,
-      borderColor: GLOW_BORDER,
-      ease: "power2.out",
-      duration: perCard / 2,
-    }, t).to(card, {
-      y: 0,
-      scale: 1,
-      boxShadow: REST_SHADOW,
-      borderColor: REST_BORDER,
-      ease: "power2.in",
-      duration: perCard / 2,
-    }, t + perCard / 2);
-    t += perCard;
-  });
 }
