@@ -27,15 +27,3 @@ export function initCursor() {
     if (e.target.closest(interactive)) cursor.classList.remove("cursor--active");
   });
 }
-
-/* ---- Navbar: theme icon toggle ---- */
-export function initNavToggles() {
-  const themeBtn = document.querySelector("#themeToggle");
-  const themeIcon = document.querySelector("#themeIcon");
-  if (themeBtn && themeIcon) {
-    themeBtn.addEventListener("click", () => {
-      const isDark = themeIcon.textContent === "🌙";
-      themeIcon.textContent = isDark ? "☀️" : "🌙";
-    });
-  }
-}
