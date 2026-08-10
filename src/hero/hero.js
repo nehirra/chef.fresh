@@ -25,4 +25,12 @@ export function initHero() {
   const play = () => video.play().catch(() => {});
   if (video.readyState >= 2) play();
   else video.addEventListener("loadeddata", play, { once: true });
+
+  // native "loop" yerine: video bitince 1 saniye beklet, sonra baştan oynat.
+  video.addEventListener("ended", () => {
+    setTimeout(() => {
+      video.currentTime = 0;
+      play();
+    }, 10);
+  });
 }
