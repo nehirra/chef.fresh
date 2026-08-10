@@ -722,34 +722,44 @@ img {
   color: var(--ink-day);
 }
 .recipes__content {
-  max-width: 1100px;
+  max-width: 1000px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(32px, 6vw, 80px);
 }
 .recipes__intro {
-  text-align: center;
-  max-width: 620px;
-  margin: 0 auto 56px;
+  text-align: left;
+  max-width: 440px;
 }
 .recipes .eyebrow { color: var(--fresh-deep); }
 .recipes__title {
-  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
 .recipes__subtitle {
-  margin-top: 18px;
-  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  margin-top: 16px;
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
   color: var(--ink-day-soft);
 }
 .recipes__phones {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: clamp(24px, 5vw, 56px);
-  flex-wrap: wrap;
+  gap: clamp(16px, 3vw, 32px);
+  flex-shrink: 0;
 }
-.recipes__phones .phone { box-shadow: 0 30px 70px rgba(20, 30, 22, 0.16); }
+.recipes__phones .phone {
+  width: min(210px, 48vw);
+  box-shadow: 0 30px 70px rgba(20, 30, 22, 0.16);
+}
+@media (max-width: 860px) {
+  .recipes__content { flex-direction: column; text-align: center; }
+  .recipes__intro { text-align: center; max-width: 560px; }
+}
 
 /* ============================================================
    ÖZELLİKLER
@@ -830,7 +840,7 @@ img {
    İLETİŞİM
    ============================================================ */
 .contact {
-  padding: 120px clamp(24px, 6vw, 96px);
+  padding: 180px clamp(24px, 6vw, 96px) 120px;
   background: linear-gradient(180deg, var(--bg-day) 0, var(--bg-night) 115px);
   color: var(--ink-night);
   text-align: center;
